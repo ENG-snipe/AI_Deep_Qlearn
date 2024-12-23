@@ -61,6 +61,13 @@ class TwoLinkArmEnv(gym.Env):
         self.ax.set_ylim(-2, 2)
         self.ax.set_aspect('equal')
 
+        # Add a grid to the plot
+        self.ax.grid(True, which='both', linestyle='--', linewidth=0.5, color='gray')
+
+        # Add x and y axes
+        self.ax.axhline(0, color='black', linewidth=1)
+        self.ax.axvline(0, color='black', linewidth=1)
+
         # Plot the first link
         self.ax.plot([0, x1], [0, y1], lw=4, color='blue')
         # Plot the second link
@@ -69,9 +76,13 @@ class TwoLinkArmEnv(gym.Env):
         # Plot the end effector (tip of the second link)
         self.ax.plot(x2, y2, 'ro')
 
+        # Annotate the position of the end effector
+        position_text = f"({x2:.2f}, {y2:.2f})"
+        self.ax.text(x2, y2, position_text, fontsize=10, color='red', ha='left', va='bottom')
+
         # Display the plot
         plt.draw()
-        plt.pause(0.1)
+        plt.pause(1)
 
     def close(self):
         # Close the environment
